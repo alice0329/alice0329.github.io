@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Order Page</title>
+    <link rel="stylesheet" type="text/css" href="./order.css">
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+</head>
+
+<body>
+<fieldset>
+  <body>
+    <fieldset>
+    <legend align=left style="border:10px solid black" color:white><h1>預約系統</h1></legend>
+    
+    <hr>
+    
+    <form>
+    
+    
+    <p>
+    <span>
+    <strong>預約者：</strong><input id="person" name="name" class="theorder"
+    type="text" required autofocus placeholder="喵太郎" >
+    <span class="ok">ok</span>
+    <br>
+    </span>
+    </p>
+
+    
+    <p>
+    <span>
+    <strong>聯絡電話：</strong>
+    <input id="tele" name="tele" type="tel" required placeholder="0912-345-678" class="theorder">
+    <span class="ok">ok</span>
+    <br>
+    </span>
+    </p>
+    
+    <p>
+     <div></div>
+     <td><p><strong>預定日期：</strong></p>
+     <input id="calendar" name="date" type="date" class="theorder">
+     <span class="ok">ok</span>
+    <br>
+    <script>
+        $('#calendar').datepicker(); 
+    </script>
+    </p>
+    
+    <p>
+     <div></div>
+     <td><p><strong>預訂時間：</p>
+     <input id="time" name="TIME" type="time" class="theorder">
+     <span class="ok">ok</span>
+    <br>
+    <script>
+        $('#time').timepicker();
+    </script>
+    </p>
+    
+    <button id="order">確定</button>
+    <button id="cancel">清除</button>
+    
+    <script type="text/javascript">
+        var name=document.getElementById("person");
+        var num=document.getElementById("tele");
+        var da=document.getElementById("calendar");
+        var ti=document.getElementById("time");
+        var nawr=0, nuwr=0, dawr=0, tiwr=0;
+        
+        // 用匿名函式設定 '清除' 鈕的動作
+        document.getElementById("cancel").onclick = 
+          function (){
+              name.value=0;
+              num.value=0;
+              da.value=0;
+              ti.value=0;
+              nawr=0;
+              nuwr=0;
+              dawr=0; 
+              tiwr=0;
+          };
+
+            $('#order').on("click" , function(){
+			
+			$('#myDialog').dialog({
+                autoOpen: false,
+                show: "blind",
+                hide: "explode",
+                buttons: {
+                    "Ok": function() { $(this).dialog("close"); },
+                    "Cancel": function() { $(this).dialog("close"); }
+                }
+            });
+              var name=document.getElementById("person").value;
+              var num=document.getElementById("tele").value;
+              var da=document.getElementById("calendar").value;
+              var ti=document.getElementById("time").value;
+              if(name==0) return;
+              else if(num==0) return;
+              else if(da==0) return;
+              else if(ti==0) return;    // 為 0 時不處理
+              var msg="";
+              if(nawr==0) msg += "訂購者："  + name +"；";
+              if(nuwr==0) msg += "連絡電話："  + num +"；";
+              if(dawr==0) msg += "預定日期："  + da +"；";
+              if(tiwr==0) msg += "預定時間："  + ti 
+              msg += "訂購者："  + name +"；";"連絡電話："  + num +"；";"預定日期："  + da +"；";"預定時間："  + ti
+
+              $('#myDialog').html(msg);
+              $('#myDialog').dialog("open");
+			  return false;
+          });
+    </script>    
+<div id="myDialog" title="基本的對話框">
+</div>
+</body>
+</html>
